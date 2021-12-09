@@ -1,0 +1,84 @@
+# Section 1 - Getting started and Installations
+
+# Section 2 - Take it up to Heroku : Production
+
+- 01 Things you need to deploy on Heroku
+    
+    Create Heroku account  - Credentials atharvamahamunitemp@gmail.com thunderStorm@5400
+    
+    Download and install Heroku CLI
+    
+- 02 Plan your application
+    
+    Now in our first application we want following requirements 
+    
+    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9eb3ee01-5f44-43c0-a536-2a50c37e5100/Untitled.png)
+    
+    According to this requirements we will plan our application on mind mapping application [miro.com](http://miro.com) 
+    
+    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3cae63a0-d9df-4fe7-80b1-bd256ae6ab58/Untitled.png)
+    
+- 03 Type of web request
+    
+    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b55f3d9e-8dce-4463-a79b-e1152d7956ad/Untitled.png)
+    
+    Majorly we use 4 types of web requests given above but there are more in the MDN documentation which can be found below.
+    
+    [https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods)
+    
+- 04 Framework
+    
+    There are various frameworks on top of nodejs to work with web requests
+    
+    expressjs.com
+    
+    koajs.com
+    
+    sailsjs.com
+    
+    [hapi.dev](http://hapi.dev)
+    
+- 05 Starting with package JSON file
+    
+    There are 2 types of dependencies
+    
+    1. Major dependencies - Which we directly install and this are required for our application
+    2. Dev dependencies - Which helps you at the development life cycle we delete them at the time of production `--save-dev`
+    
+    [Why, What and How of NPM](https://www.notion.so/Why-What-and-How-of-NPM-a59ffb539ed24bb58947c4f36a415085)
+    
+- 06 Your first express app
+    - Now to create express app we installed the express in our system
+    - Now we need to edit the scripts and start to nodemon index.js so that it becomes easier to start from there
+    
+    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/894a68a8-b8d8-4f0a-b972-5011a135a2b2/Untitled.png)
+    
+    - Now we can easily use `npm start` to start the continuous execution of app.
+    - We installed nodemon with command `npm i nodemon -D` and it got installed as a dev dependency.
+    
+    ### Our first app will look something like this.
+    
+    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/edd5aa8b-4f91-45ea-9fdf-8b05d02fad3a/Untitled.png)
+    
+    express hello world example - [https://expressjs.com/en/starter/hello-world.html](https://expressjs.com/en/starter/hello-world.html)
+    
+    ```jsx
+    const express = require('express');
+    const app = express();
+    
+    const PORT = 4000 || process.env.PORT;
+    
+    // '/' is known as the root directory where we will see our response
+    // req and res are 2 important objects req is a request and res is the reponse which we get
+    // Here we got response as a Hello World! wrapped inside h1 tag.
+    app.get('/', (req, res) => {
+        res.send('<h1>Hello World!</h1>')
+      });
+    
+    // With this we can listen response from the give port number.
+    app.listen(PORT, () => {
+        console.log(`Application is running on the port ${PORT}`);
+    });
+    ```
+    
+- 07 Request, Response and Status code
