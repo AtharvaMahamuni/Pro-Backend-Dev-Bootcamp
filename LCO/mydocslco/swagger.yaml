@@ -15,9 +15,213 @@ servers:
         enum:
           - v1
           - v2
+        default: v1
       protocol:
         enum:
           - http
           - https
+        default: http
         
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: token
+    bearerAuth:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
 
+paths:
+  /lco:
+    get:
+      tags:
+        - string
+      summary: returns a greet message from LCO
+      responses: 
+        200:
+          description: All good and success
+          content: 
+            application/json:
+              schema:
+                type: string
+                example: "mystring"
+        400:
+          description: Bad request
+        500:
+          description: Internal server error
+
+  /lcoobject:
+    get:
+      tags:
+        - object
+      summary: returns a unique course
+      responses: 
+        200:
+          description: All good and success
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name: 
+                    type: string
+                  price:
+                    type: number
+        400:
+          description: Bad request
+        500:
+          description: Internal server error
+
+  /courses:
+    get:
+      tags:
+        - array
+      summary: returns all courses
+      responses: 
+        200:
+          description: All good and success
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name: 
+                      type: string
+                    price:
+                      type: number
+        400:
+          description: Bad request
+        500:
+          description: Internal server error
+
+  /mycourse/{courseId}:
+    get:
+      tags:
+        - object
+      summary: returns the course object of given id
+      parameters:
+        - name: courseId
+          in: path
+          required: true
+          default: 22
+          schema: 
+            type: string
+      responses:
+        200:
+          description: All good success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  price:
+                    type: number
+        400:
+          description: Bad request
+        500:
+          description: Internal server error
+
+  /addCourse:
+    post:
+      tags:
+        - object
+      summary: Adds new course in the exisiting courses
+      consumes: 
+        - application/json
+      produces:
+        - application/json
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+                price:
+                  type: number 
+      responses:
+        200:
+          description: All good success
+          content:
+            application/json:
+              schema:
+                type: boolean
+        400:
+          description: Bad request
+        500:
+          description: Internal server error
+
+  /coursequery:
+    get:
+      tags:
+        - string
+      summary: Trying to learn about the query
+      parameters:
+        - name: location
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [delhi, london, solapur]
+        - name: device
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [web, mobile]
+      responses:
+        200:
+          description: All good success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  location:
+                    type: string
+                  device:
+                    type: string
+        400:
+          description: Bad request
+        500:
+          description: Internal server error
+
+  /courseupload:
+    post:
+      tags:
+        - String
+      summary: uploading course image
+      parameters:
+        - in: header
+          name: auth
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        200:
+          description: All good success
+        400:
+          description: Bad request
+        500:
+          description: internal server error
