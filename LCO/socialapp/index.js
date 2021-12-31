@@ -10,6 +10,7 @@ const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
 const swaggerDocument = YAML.load('./swagger.yaml');
 
+// api-docs middleware
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 const PORT = process.env.PORT || 4000;
@@ -31,7 +32,7 @@ app.get('/api/v1/instagram', (req, res) => {
 });
 
 app.get('/api/v1/facebook', (req, res) => {
-  const faceSocial= {
+  const faceSocial = {
     "username" : "atharvaMahamuni",
     "followers" : "1,000",
     "follows" : "1,000",
@@ -43,7 +44,7 @@ app.get('/api/v1/facebook', (req, res) => {
 });
 
 app.get('/api/v1/linkedin', (req, res) => {
-  const linkSocial= {
+  const linkSocial = {
     "username" : "atharvaMahamuni",
     "followers" : "500",
     "follows" : "80",
@@ -60,6 +61,6 @@ app.get('/api/v1/:token', (req, res) => {
   res.status(200).json({param: req.params.token});
 });
 
-app.listen(PORT, ()=>{
+app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`)
 });
